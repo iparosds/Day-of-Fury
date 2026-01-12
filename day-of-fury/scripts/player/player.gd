@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @onready var animation_player: AnimationPlayer = $visuals/player/AnimationPlayer
+@onready var visuals: Node3D = $visuals
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -23,6 +24,8 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
+		
+		visuals.look_at(direction)
 		
 		if !walking:
 			walking = true
