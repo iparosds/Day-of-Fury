@@ -16,10 +16,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="background_viewport" type="SubViewport" parent="base_camera/background_viewport_container"]
+transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 4
 
 [node name="background_camera" type="Camera3D" parent="base_camera/background_viewport_container/background_viewport"]
+cull_mask = 1047553
 
 [node name="foreground_viewport_container" type="SubViewportContainer" parent="base_camera"]
 anchors_preset = 15
@@ -29,7 +31,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="foreground_viewport" type="SubViewport" parent="base_camera/foreground_viewport_container"]
+transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 4
 
 [node name="foreground_camera" type="Camera3D" parent="base_camera/foreground_viewport_container/foreground_viewport"]
+cull_mask = 1047554
