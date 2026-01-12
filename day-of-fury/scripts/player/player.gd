@@ -3,7 +3,7 @@ extends CharacterBody3D
 @onready var animation_player: AnimationPlayer = $visuals/player/AnimationPlayer
 @onready var visuals: Node3D = $visuals
 
-const SPEED = 5.0
+const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
 
 var walking = false
