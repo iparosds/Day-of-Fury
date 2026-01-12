@@ -8,6 +8,12 @@ const JUMP_VELOCITY = 4.5
 
 var walking = false
 
+
+func _ready() -> void:
+	animation_player.set_blend_time("idle", "walk", 0.2)
+	animation_player.set_blend_time("walk", "idle", 0.2)
+
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
