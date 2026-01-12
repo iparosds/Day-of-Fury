@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 		
-		visuals.look_at(direction)
+		visuals.look_at(direction + position)
 		
 		if !walking:
 			walking = true
