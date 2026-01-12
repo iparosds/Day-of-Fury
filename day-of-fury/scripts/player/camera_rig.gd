@@ -13,11 +13,10 @@ func _ready() -> void:
 func resize():
 	background_viewport.size = DisplayServer.window_get_size()
 	foreground_viewport.size = DisplayServer.window_get_size()
-	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	background_camera.global_transform = GameManager.player.camera_point.global_transform
-	foreground_camera.global_transform = GameManager.player.camera_point.global_transform
-	
+	if GameManager.robot:
+		background_camera.global_transform = GameManager.robot.camera_point.global_transform
+		foreground_camera.global_transform = GameManager.robot.camera_point.global_transform

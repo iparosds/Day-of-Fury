@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/globals/game_manager.gd"
 
+[display]
+
+window/size/mode=3
+
 [input]
 
 forward={
