@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://sexva2yp2cww"]
+[gd_scene load_steps=9 format=3 uid="uid://sexva2yp2cww"]
 
 [ext_resource type="Material" uid="uid://ckn4iqgf3jxcm" path="res://materials/floor_material.tres" id="1_0wfyh"]
 [ext_resource type="Material" uid="uid://cwjli7ix2o4yc" path="res://materials/wall_material.tres" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b62u3ep4qdr2h" path="res://scenes/player/player.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://db8gnroasgryu" path="res://scripts/world/auto_hider.gd" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bnsbq016sfu1d" path="res://scenes/player/camera_rig.tscn" id="4_jyhfs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jyhfs"]
@@ -36,6 +37,14 @@ layers = 2
 material_override = ExtResource("2_sugp2")
 use_collision = true
 size = Vector3(1, 3, 10)
+
+[node name="wall5" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.28171262, 1.4856386, 2, -2.5777974)
+layers = 2
+material_override = ExtResource("2_sugp2")
+use_collision = true
+size = Vector3(1, 3, 10)
+script = ExtResource("3_tbgi4")
 
 [node name="wall2" type="CSGBox3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5007763, 2, 0)
