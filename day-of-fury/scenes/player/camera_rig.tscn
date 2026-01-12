@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnsbq016sfu1d"]
+[gd_scene load_steps=4 format=3 uid="uid://bnsbq016sfu1d"]
 
 [ext_resource type="Script" uid="uid://cc24yno4ao4bm" path="res://scripts/player/camera_rig.gd" id="1_asq2o"]
+[ext_resource type="Shader" uid="uid://stwux8tsq6j2" path="res://assets/shaders/forground_shader.gdshader" id="2_lih4b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_asq2o"]
+shader = ExtResource("2_lih4b")
+shader_parameter/MULTIPLIER = -0.44
+shader_parameter/SCALE = 0.5
+shader_parameter/SOFTNESS = 0.45
+shader_parameter/BASE_OPACITY = 1.0
 
 [node name="camera_rig" type="Node3D"]
 script = ExtResource("1_asq2o")
@@ -24,6 +32,7 @@ render_target_update_mode = 4
 cull_mask = 1047553
 
 [node name="foreground_viewport_container" type="SubViewportContainer" parent="base_camera"]
+material = SubResource("ShaderMaterial_asq2o")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
