@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://sexva2yp2cww"]
+[gd_scene load_steps=10 format=3 uid="uid://sexva2yp2cww"]
 
 [ext_resource type="Material" uid="uid://ckn4iqgf3jxcm" path="res://materials/floor_material.tres" id="1_0wfyh"]
 [ext_resource type="Material" uid="uid://cwjli7ix2o4yc" path="res://materials/wall_material.tres" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://db8gnroasgryu" path="res://scripts/world/auto_hider.gd" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bnsbq016sfu1d" path="res://scenes/player/camera_rig.tscn" id="4_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://5qiutcfa6bb8" path="res://scenes/robot/robot.tscn" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://5qiutcfa6bb8" path="res://scenes/player/player.tscn" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dmwo4fku7gxfi" path="res://scenes/enemies/spider.tscn" id="6_tefeu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jyhfs"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -121,3 +122,6 @@ size = Vector3(1, 3, 8)
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 4, 0.52314055, 0)
 
 [node name="camera_rig" parent="." instance=ExtResource("4_jyhfs")]
+
+[node name="enemy" parent="." instance=ExtResource("6_tefeu")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -7.8674355, 0.50171745, 4.884794)
