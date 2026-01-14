@@ -10,11 +10,11 @@ const ACCELERATION: float = 18.0
 const DECELERATION: float = 22.0
 
 # Estados básicos do player para controlar animações e regras de movimento
-enum PlayerState { IDLE, RUN, JUMP, ATTACK }
+enum PlayerState { IDLE, RUN, JUMP, ATTACK, HURT }
 
 @onready var animation_player: AnimationPlayer = $visuals/robot/AnimationPlayer
 @onready var visuals: Node3D = $visuals
-# ponto usado por câmera externa
+# Ponto usado pela câmera externa para seguir o player.
 @onready var camera_point: Node3D = $camera_point 
 
 # Estado atual do player
@@ -49,6 +49,26 @@ func _physics_process(delta: float) -> void:
 	# Aplica gravidade apenas quando estiver no ar
 	if not prev_on_floor:
 		velocity += get_gravity() * delta
+	# Estado HURT: permite que a animação de dano seja interrompida por ataque, pulo ou movimento,
+	# evitando que o player fique totalmente incapacitado.
+	if state == PlayerState.HURT:
+		# Cancela se o jogador tentar fazer algo
+		if Input.is_action_just_pressed("attack"):
+			_set_state(PlayerState.ATTACK)
+		elif Input.is_action_just_pressed("ui_accept") and prev_on_floor:
+			velocity.y = JUMP_VELOCITY
+			_set_state(PlayerState.JUMP)
+		elif move_dir != Vector3.ZERO:
+			_set_state(PlayerState.RUN)
+		else:
+			# sem input: mantém hurt e segura o deslize
+			velocity.x = move_toward(velocity.x, 0.0, DECELERATION * 3.0 * delta)
+			velocity.z = move_toward(velocity.z, 0.0, DECELERATION * 3.0 * delta)
+		# Executa apenas a física básica neste frame e encerra o processamento,
+		# impedindo que a lógica normal de movimento/ataque rode junto com o HURT.
+		move_and_slide()
+		was_on_floor = is_on_floor()
+		return
 	# Inicia ataque (uma vez por clique)
 	if Input.is_action_just_pressed("attack") and state != PlayerState.ATTACK:
 		_set_state(PlayerState.ATTACK)
@@ -67,7 +87,8 @@ func _physics_process(delta: float) -> void:
 	was_on_floor = now_on_floor
 	# Trata transições chão/ar
 	handle_floor_transitions(prev_on_floor, now_on_floor)
-	# Se o ataque acabou (animação não é mais Attack1), corrige para Idle/Run
+	# Fallback de segurança: se a animação de ataque foi interrompida por outro estado,
+	# corrige automaticamente para Idle ou Run conforme o input e o chão.
 	if state == PlayerState.ATTACK and animation_player.current_animation != "Attack1":
 		apply_ground_state_by_input(now_on_floor)
 
@@ -115,7 +136,7 @@ func apply_movement(delta: float, prev_on_floor: bool) -> void:
 
 
 # Necessária para manter o visual virado para a direção do movimento,
-# separando rotação da lógica de movimento (fica mais estável e legível).
+# separando rotação da lógica de movimento.
 func apply_rotation() -> void:
 	# Não rotaciona sem direção
 	if move_dir == Vector3.ZERO:
@@ -162,5 +183,24 @@ func _set_state(new_state: int) -> void:
 			animation_player.play("Jump")
 		PlayerState.RUN:
 			animation_player.play("Run")
+		PlayerState.HURT:
+			animation_player.play("Hurt")
 		_:
 			animation_player.play("Idle")
+
+
+# Aplica dano ao player acionando o estado HURT:
+# a animação de dano pode ser interrompida por ataque, movimento ou pulo,
+# evitando travar o controle do personagem.
+func take_damage(_damage: int) -> void:
+	# Evita tomar dano em cadeia.
+	if state == PlayerState.HURT:
+		return
+	_set_state(PlayerState.HURT)
+	await get_tree().create_timer(0.35).timeout
+	# Se o HURT foi cancelado por ataque/movimento/pulo, não força voltar pro idle/run
+	if state != PlayerState.HURT:
+		return
+	# Ao fim do HURT sem interrupção, retorna ao estado correto
+	# com base no chão e no input atual.
+	apply_ground_state_by_input(is_on_floor())

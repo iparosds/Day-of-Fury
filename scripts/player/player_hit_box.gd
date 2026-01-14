@@ -8,6 +8,7 @@ var hit_targets := {}
 
 
 func _ready() -> void:
+	add_to_group("player_hitbox")
 	# Área inicia desativada
 	monitoring = false
 	# Detecta entrada de novas áreas durante o ataque
@@ -35,6 +36,9 @@ func _on_area_entered(area: Area3D) -> void:
 
 
 func _try_hit(area: Area3D) -> void:
+	# Só causa dano em hurtbox de inimigo
+	if not area.is_in_group("enemy_hurtbox"):
+		return
 	# Ignora se o alvo já foi atingido neste ataque
 	if hit_targets.has(area):
 		return

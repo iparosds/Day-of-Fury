@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c511mll10djp6"]
+[gd_scene load_steps=3 format=3 uid="uid://4px6aloj4hwk"]
 
-[ext_resource type="Script" uid="uid://bux36c0wyg322" path="res://scripts/enemies/hurt_box.gd" id="1_6dlxb"]
+[ext_resource type="Script" uid="uid://bux36c0wyg322" path="res://scripts/enemies/spider/spider_hurt_box.gd" id="1_6dlxb"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6dlxb"]
 
