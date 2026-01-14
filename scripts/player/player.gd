@@ -10,13 +10,17 @@ const ACCELERATION: float = 18.0
 const DECELERATION: float = 22.0
 
 # Estados básicos do player para controlar animações e regras de movimento
-enum PlayerState { IDLE, RUN, JUMP, ATTACK, HURT }
+enum PlayerState { IDLE, RUN, JUMP, ATTACK, HURT, DEATH }
 
 @onready var animation_player: AnimationPlayer = $visuals/robot/AnimationPlayer
 @onready var visuals: Node3D = $visuals
 # Ponto usado pela câmera externa para seguir o player.
 @onready var camera_point: Node3D = $camera_point 
+# Vida máxima configurável no inspector
+@export var max_health: int = 100
 
+# Vida atual do player
+var health: int
 # Estado atual do player
 var state: int = PlayerState.IDLE
 # Direção de movimento calculada a partir do input
@@ -28,6 +32,7 @@ var was_on_floor: bool = false
 func _ready() -> void:
 	# Registra o player no GameManager
 	GameManager.set_player(self)
+	health = max_health
 	# Suaviza transições entre animações
 	animation_player.set_blend_time("Idle", "Run", 0.2)
 	animation_player.set_blend_time("Run", "Idle", 0.2)
@@ -49,6 +54,14 @@ func _physics_process(delta: float) -> void:
 	# Aplica gravidade apenas quando estiver no ar
 	if not prev_on_floor:
 		velocity += get_gravity() * delta
+	
+	if state == PlayerState.DEATH:
+		velocity.x = 0.0
+		velocity.z = 0.0
+		move_and_slide()
+		was_on_floor = is_on_floor()
+		return
+	
 	# Estado HURT: permite que a animação de dano seja interrompida por ataque, pulo ou movimento,
 	# evitando que o player fique totalmente incapacitado.
 	if state == PlayerState.HURT:
@@ -68,7 +81,7 @@ func _physics_process(delta: float) -> void:
 		# impedindo que a lógica normal de movimento/ataque rode junto com o HURT.
 		move_and_slide()
 		was_on_floor = is_on_floor()
-		return
+		return	
 	# Inicia ataque (uma vez por clique)
 	if Input.is_action_just_pressed("attack") and state != PlayerState.ATTACK:
 		_set_state(PlayerState.ATTACK)
@@ -185,6 +198,8 @@ func _set_state(new_state: int) -> void:
 			animation_player.play("Run")
 		PlayerState.HURT:
 			animation_player.play("Hurt")
+		PlayerState.DEATH:
+			animation_player.play("Hurt")
 		_:
 			animation_player.play("Idle")
 
@@ -192,15 +207,32 @@ func _set_state(new_state: int) -> void:
 # Aplica dano ao player acionando o estado HURT:
 # a animação de dano pode ser interrompida por ataque, movimento ou pulo,
 # evitando travar o controle do personagem.
-func take_damage(_damage: int) -> void:
-	# Evita tomar dano em cadeia.
+func take_damage(damage: int) -> void:
+	# Se já morreu, ignora danos (evita agendar reload múltiplas vezes)
+	if state == PlayerState.DEATH:
+		return
+	# Evita dano em cadeia durante o i-frame do HURT.
 	if state == PlayerState.HURT:
 		return
+	# Aplica dano/vida
+	health -= damage
+	health = clamp(health, 0, max_health)
+	print("Player health:", health)
+	# Morte: recarrega a cena inteira (reseta tudo)
+	if health <= 0:
+		_set_state(PlayerState.DEATH)
+		call_deferred("_reload_after_death")
+		return
+	# Entra em HURT (interrompível pelo input, como você já fez no _physics_process)
 	_set_state(PlayerState.HURT)
 	await get_tree().create_timer(0.35).timeout
 	# Se o HURT foi cancelado por ataque/movimento/pulo, não força voltar pro idle/run
 	if state != PlayerState.HURT:
 		return
-	# Ao fim do HURT sem interrupção, retorna ao estado correto
-	# com base no chão e no input atual.
 	apply_ground_state_by_input(is_on_floor())
+
+
+func _reload_after_death() -> void:
+	# Tempo entre a animação de morte e o jogo resetar.
+	await get_tree().create_timer(2.5).timeout 
+	get_tree().reload_current_scene()

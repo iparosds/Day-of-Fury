@@ -2,11 +2,12 @@ extends CharacterBody3D
 
 # Velocidade base de movimentação do spider
 const SPEED : float = 3.0
-
+@onready var spider_hit_box: Area3D = $SpiderHitBox
 # Controla as animações do inimigo
 @onready var animation_player: AnimationPlayer = $SpiderPC1/AnimationPlayer
 # Agente de navegação responsável por pathfinding e avoidance
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
+
 # Vida máxima configurável pelo editor
 @export var max_health: int = 50
 
@@ -132,3 +133,11 @@ func _on_hurt_box_area_exited(area: Area3D) -> void:
 	if not area.is_in_group("player_hitbox"):
 		return
 	player_in_range = false
+
+
+func attack_hitbox_enable() -> void:
+	spider_hit_box.enable()
+
+
+func attack_hitbox_disable() -> void:
+	spider_hit_box.disable()

@@ -7,10 +7,12 @@ var layer = 0
 
 
 func _process(_delta: float) -> void:
+	if not is_instance_valid(GameManager.player):
+		return
 	# Se o player estiver à direita do objeto,
 	# o objeto vai para o background.
 	# Caso contrário, fica no foreground.
-	if GameManager.player.position.x > position.x:
+	if GameManager.player.global_position.x > global_position.x:
 		set_to_background()
 	else:
 		set_to_foreground()

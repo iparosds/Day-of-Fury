@@ -1,7 +1,7 @@
 extends Area3D
 
 # Dano causado pelo ataque do spider
-@export var damage := 10
+var damage := 3
 
 # Guarda as hurtboxes já atingidas neste ataque
 # (evita aplicar dano múltiplas vezes no mesmo alvo)

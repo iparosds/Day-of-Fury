@@ -5,6 +5,8 @@ extends Node3D
 
 
 func _physics_process(_delta: float) -> void:
+	if not is_instance_valid(player):
+		return
 	# A cada frame de física, envia a posição atual do player
 	# para todos os nós do grupo "enemies", permitindo que cada
 	# inimigo atualize seu NavigationAgent e persiga o jogador
