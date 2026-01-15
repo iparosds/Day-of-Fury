@@ -19,6 +19,8 @@ enum PlayerState { IDLE, RUN, JUMP, ATTACK, HURT, DEATH }
 # Vida máxima configurável no inspector
 @export var max_health: int = 100
 
+signal health_changed(current: int, max: int)
+
 # Vida atual do player
 var health: int
 # Estado atual do player
@@ -33,6 +35,7 @@ func _ready() -> void:
 	# Registra o player no GameManager
 	GameManager.set_player(self)
 	health = max_health
+	emit_signal("health_changed", health, max_health)
 	# Suaviza transições entre animações
 	animation_player.set_blend_time("Idle", "Run", 0.2)
 	animation_player.set_blend_time("Run", "Idle", 0.2)
@@ -54,14 +57,12 @@ func _physics_process(delta: float) -> void:
 	# Aplica gravidade apenas quando estiver no ar
 	if not prev_on_floor:
 		velocity += get_gravity() * delta
-	
 	if state == PlayerState.DEATH:
 		velocity.x = 0.0
 		velocity.z = 0.0
 		move_and_slide()
 		was_on_floor = is_on_floor()
 		return
-	
 	# Estado HURT: permite que a animação de dano seja interrompida por ataque, pulo ou movimento,
 	# evitando que o player fique totalmente incapacitado.
 	if state == PlayerState.HURT:
@@ -217,7 +218,7 @@ func take_damage(damage: int) -> void:
 	# Aplica dano/vida
 	health -= damage
 	health = clamp(health, 0, max_health)
-	print("Player health:", health)
+	emit_signal("health_changed", health, max_health)
 	# Morte: recarrega a cena inteira (reseta tudo)
 	if health <= 0:
 		_set_state(PlayerState.DEATH)

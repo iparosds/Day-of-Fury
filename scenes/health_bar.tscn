@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://b24accxpn8lcu"]
+
+[ext_resource type="Script" uid="uid://clp8h1a8r4c16" path="res://scripts/health_bar.gd" id="1_1bvlm"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6jdqd"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l31cn"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jdqd"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 1, 0.4, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="HealthBar" type="Node3D"]
+script = ExtResource("1_1bvlm")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+modulate = Color(1, 1, 1, 0.5019608)
+billboard = 2
+no_depth_test = true
+texture = SubResource("ViewportTexture_6jdqd")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+size = Vector2i(128, 28)
+
+[node name="Control" type="Control" parent="Sprite3D/SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Sprite3D/SubViewport/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_l31cn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6jdqd")
+step = 1.0
+value = 50.0

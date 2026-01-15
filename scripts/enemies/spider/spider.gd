@@ -2,14 +2,16 @@ extends CharacterBody3D
 
 # Velocidade base de movimentação do spider
 const SPEED : float = 3.0
+
 @onready var spider_hit_box: Area3D = $SpiderHitBox
 # Controla as animações do inimigo
 @onready var animation_player: AnimationPlayer = $SpiderPC1/AnimationPlayer
 # Agente de navegação responsável por pathfinding e avoidance
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
-
 # Vida máxima configurável pelo editor
 @export var max_health: int = 50
+
+signal health_changed(current: int, max: int)
 
 # Vida atual do inimigo
 var health: int
@@ -24,6 +26,7 @@ var is_hurt: bool = false
 func _ready() -> void:
 	# Inicializa a vida do inimigo
 	health = max_health
+	emit_signal("health_changed", health, max_health)
 	# Adiciona o spider ao grupo de inimigos
 	add_to_group("enemies")
 	# Ativa o sistema de avoidance para evitar empilhamento entre spiders
@@ -84,7 +87,7 @@ func take_damage(damage: int) -> void:
 	# Aplica dano
 	health -= damage
 	health = clamp(health, 0, max_health)
-	print("Enemy health:", health)
+	emit_signal("health_changed", health, max_health)
 	# Se a vida chegar a zero, inicia morte
 	if health <= 0:
 		die()

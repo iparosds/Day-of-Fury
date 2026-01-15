@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://dmwo4fku7gxfi"]
+[gd_scene load_steps=40 format=4 uid="uid://dmwo4fku7gxfi"]
 
 [ext_resource type="Script" uid="uid://bgil8g7x1uiyx" path="res://scripts/enemies/spider/spider.gd" id="1_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://cvfxrvdqqori8" path="res://assets/models/SpiderPC1_Computer_3.png" id="2_nenq2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b1311vj4jvqm7" path="res://assets/models/SpiderPC1_WhatsApp Image 2026-01-13 at 14.51.jpg" id="6_w8i8w"]
 [ext_resource type="Script" uid="uid://bux36c0wyg322" path="res://scripts/enemies/spider/spider_hurt_box.gd" id="7_5s4wc"]
 [ext_resource type="Script" uid="uid://d0deb1n1kyxgx" path="res://scripts/enemies/spider/spider_hit_box.gd" id="8_5s4wc"]
+[ext_resource type="PackedScene" uid="uid://b24accxpn8lcu" path="res://scenes/health_bar.tscn" id="9_t7m53"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cqejp"]
 resource_name = "Dark"
@@ -1788,6 +1789,11 @@ script = ExtResource("8_5s4wc")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SpiderHitBox"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, -0.02417171)
 shape = SubResource("CylinderShape3D_mf3vg")
+
+[node name="HealthBar" parent="." instance=ExtResource("9_t7m53")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 1.3501838, 0)
+show_only_when_damaged = true
+enemy_bar = true
 
 [connection signal="area_entered" from="SpiderHurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_exited" from="SpiderHurtBox" to="." method="_on_hurt_box_area_exited"]
