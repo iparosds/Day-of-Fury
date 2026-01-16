@@ -35,6 +35,7 @@ func _process(delta: float) -> void:
 
 
 func _on_play_button_pressed() -> void:
+	GameManager.reset_lives()
 	# Inicia o jogo carregando a cena principal
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 

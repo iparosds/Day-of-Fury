@@ -6,6 +6,7 @@ func _ready() -> void:
 
 
 func _on_restart_game_button_pressed() -> void:
+	GameManager.reset_lives()
 	# Remove a pausa do jogo
 	get_tree().paused = false
 	# Captura o mouse novamente para o gameplay

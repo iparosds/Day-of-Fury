@@ -6,22 +6,31 @@ extends Node3D
 @onready var game_over: Control = $UI/GameOver
 # Cena de Game Over
 @export var game_over_scene: PackedScene
+@onready var hud: Control = $UI/HUD
 
 
 func _ready() -> void:
 	# Garante que a tela de Game Over inicia invisível
 	game_over.visible = false
+	# HUD inicia mostrando vidas atuais
+	hud.update_lives()
 	# Conecta o sinal de morte do player
 	player.died.connect(on_player_died)
 
 
 func on_player_died() -> void:
-	# Exibe a tela de Game Over
-	game_over.visible = true
-	# Pausa o jogo inteiro
-	get_tree().paused = true
-	# Libera o mouse para interação com a UI
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	# Player perdeu uma vida
+	GameManager.lose_life()
+	hud.update_lives()
+	if GameManager.has_lives_left():
+		# Ainda há vidas -> reinicia a fase automaticamente
+		await get_tree().create_timer(1.0).timeout
+		get_tree().reload_current_scene()
+	else:
+		# Acabaram as vidas -> Game Over
+		game_over.visible = true
+		get_tree().paused = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func _physics_process(_delta: float) -> void:

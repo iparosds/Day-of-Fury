@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://sexva2yp2cww"]
+[gd_scene load_steps=17 format=3 uid="uid://sexva2yp2cww"]
 
 [ext_resource type="Script" uid="uid://0e88no365uj6" path="res://scripts/world/world.gd" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://5qiutcfa6bb8" path="res://scenes/player/player.tscn" id="2_4mrxx"]
@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://cwjli7ix2o4yc" path="res://materials/wall_material.tres" id="6_q5onr"]
 [ext_resource type="Script" uid="uid://db8gnroasgryu" path="res://scripts/world/auto_hider.gd" id="7_jhx03"]
 [ext_resource type="Script" uid="uid://bknnd4kfmq2d5" path="res://scripts/world/game_over.gd" id="9_7r4gi"]
+[ext_resource type="Script" uid="uid://c6yxo4c3q7dwc" path="res://scripts/world/hud.gd" id="9_w7kh3"]
 
 [sub_resource type="PackedScene" id="PackedScene_4mrxx"]
 _bundled = {
@@ -181,8 +182,33 @@ size = Vector3(1, 3, 8)
 [node name="UI" type="CanvasLayer" parent="."]
 process_mode = 3
 
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("9_w7kh3")
+
+[node name="LivesLabel" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -145.0
+offset_top = 14.0
+offset_right = -16.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Lives: 3"
+
 [node name="GameOver" type="Control" parent="UI"]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
