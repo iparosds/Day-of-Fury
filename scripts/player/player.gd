@@ -20,6 +20,7 @@ enum PlayerState { IDLE, RUN, JUMP, ATTACK, HURT, DEATH }
 @export var max_health: int = 100
 
 signal health_changed(current: int, max: int)
+signal died
 
 # Vida atual do player
 var health: int
@@ -222,7 +223,7 @@ func take_damage(damage: int) -> void:
 	# Morte: recarrega a cena inteira (reseta tudo)
 	if health <= 0:
 		_set_state(PlayerState.DEATH)
-		call_deferred("_reload_after_death")
+		call_deferred("emit_died_after_death")
 		return
 	# Entra em HURT (interrompível pelo input, como você já fez no _physics_process)
 	_set_state(PlayerState.HURT)
@@ -233,7 +234,7 @@ func take_damage(damage: int) -> void:
 	apply_ground_state_by_input(is_on_floor())
 
 
-func _reload_after_death() -> void:
-	# Tempo entre a animação de morte e o jogo resetar.
-	await get_tree().create_timer(2.5).timeout 
-	get_tree().reload_current_scene()
+func emit_died_after_death() -> void:
+	# deixa a “animação de morte” acontecer (no seu caso é Hurt)
+	await get_tree().create_timer(2.5).timeout
+	emit_signal("died")

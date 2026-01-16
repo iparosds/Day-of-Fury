@@ -138,9 +138,14 @@ func _on_hurt_box_area_exited(area: Area3D) -> void:
 	player_in_range = false
 
 
+# Ativa o hitbox de ataque do spider.
+# Essa função é chamada via AnimationPlayer (track de chamada de método)
 func attack_hitbox_enable() -> void:
 	spider_hit_box.enable()
 
 
+# Desativa o hitbox de ataque do spider.
+# Também é chamada pela animação para garantir que o dano
+# só seja aplicado durante os frames corretos do ataque.
 func attack_hitbox_disable() -> void:
 	spider_hit_box.disable()
