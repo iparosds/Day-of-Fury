@@ -6,6 +6,7 @@ extends Node
 var player: Node
 var player_lives : int = 3
 const MAX_LIVES : int = 3
+var current_level: int = 0
 
 func set_player(player_node: Node) -> void:
 	# Define o player atual do jogo

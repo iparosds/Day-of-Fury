@@ -12,7 +12,8 @@ const DECELERATION: float = 22.0
 # Estados básicos do player para controlar animações e regras de movimento
 enum PlayerState { IDLE, RUN, JUMP, ATTACK, HURT, DEATH }
 
-@onready var animation_player: AnimationPlayer = $visuals/robot/AnimationPlayer
+@onready var animation_player: AnimationPlayer = $visuals/dev_hero/AnimationPlayer
+#@onready var animation_player: AnimationPlayer = $visuals/robot/AnimationPlayer
 @onready var visuals: Node3D = $visuals
 # Ponto usado pela câmera externa para seguir o player.
 @onready var camera_point: Node3D = $camera_point 

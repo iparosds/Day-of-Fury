@@ -1,0 +1,286 @@
+[gd_scene load_steps=18 format=3 uid="uid://bh0142p4qd3it"]
+
+[ext_resource type="Script" uid="uid://0e88no365uj6" path="res://scripts/world/world.gd" id="1_i6go8"]
+[ext_resource type="Script" uid="uid://bknnd4kfmq2d5" path="res://scripts/world/game_over.gd" id="2_fhnld"]
+[ext_resource type="PackedScene" uid="uid://5qiutcfa6bb8" path="res://scenes/player/player.tscn" id="3_dw3vx"]
+[ext_resource type="PackedScene" uid="uid://bnsbq016sfu1d" path="res://scenes/player/camera_rig.tscn" id="4_n43de"]
+[ext_resource type="PackedScene" uid="uid://dmwo4fku7gxfi" path="res://scenes/enemies/spider.tscn" id="5_dv4af"]
+[ext_resource type="Material" uid="uid://ckn4iqgf3jxcm" path="res://materials/floor_material.tres" id="6_ysav7"]
+[ext_resource type="Material" uid="uid://cwjli7ix2o4yc" path="res://materials/wall_material.tres" id="7_rt81f"]
+[ext_resource type="Script" uid="uid://db8gnroasgryu" path="res://scripts/world/auto_hider.gd" id="8_oid5c"]
+[ext_resource type="Script" uid="uid://c6yxo4c3q7dwc" path="res://scripts/world/hud.gd" id="9_ugwxf"]
+
+[sub_resource type="PackedScene" id="PackedScene_4mrxx"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("GameOver", "process_mode", "script", "Node3D"),
+"node_count": 1,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 3, 0, -1, 2, 1, 0, 2, 1, 0),
+"variants": [3, ExtResource("2_fhnld")],
+"version": 3
+}
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jyhfs"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_tbgi4"]
+sky_material = SubResource("ProceduralSkyMaterial_jyhfs")
+
+[sub_resource type="Environment" id="Environment_tefeu"]
+background_mode = 2
+sky = SubResource("Sky_tbgi4")
+tonemap_mode = 2
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 1.0
+glow_intensity = 1.0
+glow_bloom = 0.1
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_tefeu"]
+vertices = PackedVector3Array(4.4278865, 4, 19.5, 4.4278865, 4, 19, -4.3221135, 4, 19, -4.5721135, 4, 19.5, -4.5721135, 4, -19.5, -4.3221135, 4, -19, 4.4278865, 4, -19, 4.4278865, 4, -19.5, 2.4278865, 1, 0.75, 2.6778865, 1, 2, 3.4278865, 1, 2, 3.4278865, 1, -18.25, -3.3221135, 1, -18.25, -3.3221135, 1, 1, 1.4278865, 4, 2.25, 1.6778865, 4, 9.5, 1.6778865, 4, 1.75, -2.3221135, 4, 1.75, 0.4278865, 1, 10.25, 0.4278865, 1, 3, -3.3221135, 1, 2.75, 2.4278865, 1, 10.5, 3.4278865, 1, 18.25, -3.3221135, 1, 18.25)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 2, 4), PackedInt32Array(4, 2, 3), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 4), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(13, 12, 8), PackedInt32Array(8, 12, 11), PackedInt32Array(16, 15, 14), PackedInt32Array(16, 14, 17), PackedInt32Array(19, 18, 20), PackedInt32Array(9, 10, 21), PackedInt32Array(21, 10, 22), PackedInt32Array(22, 23, 18), PackedInt32Array(18, 23, 20), PackedInt32Array(18, 21, 22)]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i6go8"]
+size = Vector3(1, 1, 1.2922363)
+
+[sub_resource type="Gradient" id="Gradient_4mrxx"]
+offsets = PackedFloat32Array(0, 0.5837838, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.16470589, 0.1764706, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7r4gi"]
+gradient = SubResource("Gradient_4mrxx")
+
+[node name="world3" type="Node3D"]
+script = ExtResource("1_i6go8")
+game_over_scene = SubResource("PackedScene_4mrxx")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tefeu")
+
+[node name="player" parent="." instance=ExtResource("3_dw3vx")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -1.0214672, 0.52314055, -17.579542)
+
+[node name="camera_rig" parent="." instance=ExtResource("4_n43de")]
+
+[node name="enemies" type="Node3D" parent="."]
+
+[node name="spider" parent="enemies" instance=ExtResource("5_dv4af")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -2.8674355, 0.50171745, 15.884794)
+
+[node name="spider2" parent="enemies" instance=ExtResource("5_dv4af")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 0.13256454, 0.50171745, 15.884794)
+
+[node name="spider3" parent="enemies" instance=ExtResource("5_dv4af")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -0.86743546, 0.50171745, -7.115206)
+
+[node name="spider5" parent="enemies" instance=ExtResource("5_dv4af")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -0.86743546, 0.50171745, 3.8847942)
+
+[node name="spider4" parent="enemies" instance=ExtResource("5_dv4af")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -1.8674355, 0.50171745, -2.1152058)
+
+[node name="spider7" parent="enemies" instance=ExtResource("5_dv4af")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 1.1325645, 0.50171745, -4.115206)
+
+[node name="spider6" parent="enemies" instance=ExtResource("5_dv4af")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 3.1325645, 0.50171745, -8.115206)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_tefeu")
+
+[node name="map" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="floor" type="CSGBox3D" parent="NavigationRegion3D/map"]
+material_override = ExtResource("6_ysav7")
+use_collision = true
+size = Vector3(10, 1, 40)
+
+[node name="lights" type="Node3D" parent="NavigationRegion3D/map"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="NavigationRegion3D/map/lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.400004, 6, 6.1867647)
+layers = 3
+light_energy = 4.0
+shadow_enabled = true
+omni_range = 16.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="NavigationRegion3D/map/lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 5, -1)
+layers = 3
+light_energy = 4.0
+shadow_enabled = true
+omni_range = 16.0
+
+[node name="inner_walls" type="Node3D" parent="NavigationRegion3D/map"]
+
+[node name="wall6" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.28171262, 1.4856386, 2, 5.619093)
+layers = 2
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 30.40332)
+script = ExtResource("8_oid5c")
+
+[node name="wall7" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
+transform = Transform3D(-4.371139e-08, 0, -0.28171262, 0, 1, 0, 1, 0, -1.231405e-08, -0.60889935, 2, 1.8351098)
+layers = 2
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 14.009277)
+script = ExtResource("8_oid5c")
+
+[node name="outer_walls" type="Node3D" parent="NavigationRegion3D/map"]
+
+[node name="wall" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.499016, 2, 0)
+layers = 2
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 38)
+
+[node name="wall2" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.8, -4.5501575, 2, 0)
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 22)
+
+[node name="wall3" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
+transform = Transform3D(-4.3711385e-08, 0, 2.5, 0, 1, 0, -0.99999994, 0, -1.09278474e-07, -0.04663153, 2, -19.493208)
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 4.0203857)
+
+[node name="wall4" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
+transform = Transform3D(-4.3711385e-08, 0, 2.5, 0, 1, 0, -0.99999994, 0, -1.09278474e-07, 0.0037226677, 2, 19.493208)
+layers = 2
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 4.0283203)
+
+[node name="porta" type="CSGBox3D" parent="NavigationRegion3D/map"]
+transform = Transform3D(-1, 0, 1.1920929e-07, 0, 1, 0, -1.1920929e-07, 0, -1, -4.5105524, 2, 9.480064)
+layers = 2
+material_override = ExtResource("6_ysav7")
+use_collision = true
+size = Vector3(1, 3, 3.3382568)
+
+[node name="Area3D" type="Area3D" parent="NavigationRegion3D/map/porta"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/map/porta/Area3D"]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_i6go8")
+
+[node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("9_ugwxf")
+
+[node name="LivesLabel" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -145.0
+offset_top = 14.0
+offset_right = -16.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Lives: 3"
+
+[node name="GameOver" type="Control" parent="UI"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_fhnld")
+
+[node name="TextureRect" type="TextureRect" parent="UI/GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_7r4gi")
+
+[node name="Control" type="Control" parent="UI/GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/GameOver/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.5
+offset_top = -140.0
+offset_right = 141.5
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 52
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOver/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = -44.0
+offset_right = 83.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RestartGameButton" type="Button" parent="UI/GameOver/Control/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+text = "Restart Game"
+
+[node name="HSeparator" type="HSeparator" parent="UI/GameOver/Control/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="MainMenuButton" type="Button" parent="UI/GameOver/Control/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 24
+text = "Main Menu"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/RestartGameButton" to="UI/GameOver" method="_on_restart_game_button_pressed"]
+[connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/MainMenuButton" to="UI/GameOver" method="_on_main_menu_button_pressed"]

@@ -8,6 +8,14 @@ extends Node3D
 @export var game_over_scene: PackedScene
 @onready var hud: Control = $UI/HUD
 
+# Ordem das fases
+const WORLDS := [
+	"res://scenes/world.tscn",
+	"res://scenes/world2.tscn",
+	"res://scenes/world3.tscn"
+]
+
+
 
 func _ready() -> void:
 	# Garante que a tela de Game Over inicia invisível
@@ -44,3 +52,18 @@ func _physics_process(_delta: float) -> void:
 		"update_target_location",
 		player.global_transform.origin
 	)
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body == GameManager.player:
+		go_to_next_world()
+
+
+func go_to_next_world() -> void:
+	GameManager.current_level += 1
+	# Se não houver mais fases, você decide o que fazer
+	if GameManager.current_level >= WORLDS.size():
+		# Exemplo simples: volta pro menu
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		return
+	get_tree().change_scene_to_file(WORLDS[GameManager.current_level])

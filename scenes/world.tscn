@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://sexva2yp2cww"]
+[gd_scene load_steps=18 format=3 uid="uid://sexva2yp2cww"]
 
 [ext_resource type="Script" uid="uid://0e88no365uj6" path="res://scripts/world/world.gd" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://5qiutcfa6bb8" path="res://scenes/player/player.tscn" id="2_4mrxx"]
@@ -43,6 +43,9 @@ glow_bloom = 0.1
 [sub_resource type="NavigationMesh" id="NavigationMesh_tefeu"]
 vertices = PackedVector3Array(-5.2575693, 4, -9, -5.0075693, 4, -1.75, -5.0075693, 4, -9, 0.9924307, 4, -9.25, 1.4924307, 4, -1.5, 1.4924307, 4, -9, 1.4924307, 4, 1.75, -2.2575693, 4, 1.75, 1.2424307, 4, 2.25, -9.257569, 4, 2.25, -5.0075693, 4, 1.75, -9.257569, 4, 1.5, -9.507569, 4, -9.5, -9.257569, 4, -9, 1.7424307, 4, 9.25, 1.2424307, 4, 9, -9.007569, 4, 9.25, -9.507569, 4, 9.5, 9.492431, 4, 9.5, 8.992431, 4, -9.25, 9.492431, 4, -9.5, 9.242431, 4, 9, -4.0075693, 1, 1.75, -3.2575693, 1, 1.75, -3.0075693, 1, 0.75, -4.2575693, 1, 0.75, 0.24243069, 1, -8.25, -4.0075693, 1, -8.25, -4.0075693, 1, -1, 0.24243069, 1, -0.75, 1.2424307, 1, 0.75, 1.2424307, 1, -0.5, -6.0075693, 1, -0.75, -8.257569, 1, 0.75, -6.2575693, 1, -8.25, -8.257569, 1, -8.25, 2.4924307, 1, 1, 2.4924307, 1, -0.75, 8.242431, 1, 8.25, 8.242431, 1, -8.25, 2.4924307, 1, 8.25, 2.4924307, 1, -8.25, -4.2575693, 1, 3, -3.0075693, 1, 3, -8.257569, 1, 8.25, 0.24243069, 1, 8.25, 0.24243069, 1, 3, -8.257569, 1, 3)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(0, 13, 12), PackedInt32Array(0, 12, 2), PackedInt32Array(2, 12, 3), PackedInt32Array(15, 8, 14), PackedInt32Array(14, 8, 6), PackedInt32Array(16, 14, 17), PackedInt32Array(17, 14, 18), PackedInt32Array(19, 5, 3), PackedInt32Array(17, 9, 16), PackedInt32Array(19, 3, 20), PackedInt32Array(20, 3, 12), PackedInt32Array(19, 20, 21), PackedInt32Array(21, 20, 18), PackedInt32Array(16, 15, 14), PackedInt32Array(13, 11, 12), PackedInt32Array(12, 11, 17), PackedInt32Array(18, 14, 21), PackedInt32Array(9, 17, 11), PackedInt32Array(22, 25, 23), PackedInt32Array(23, 25, 24), PackedInt32Array(27, 26, 28), PackedInt32Array(28, 26, 29), PackedInt32Array(31, 30, 29), PackedInt32Array(29, 30, 24), PackedInt32Array(28, 25, 32), PackedInt32Array(32, 25, 33), PackedInt32Array(25, 28, 24), PackedInt32Array(24, 28, 29), PackedInt32Array(34, 32, 35), PackedInt32Array(35, 32, 33), PackedInt32Array(31, 37, 30), PackedInt32Array(30, 37, 36), PackedInt32Array(36, 37, 38), PackedInt32Array(38, 37, 39), PackedInt32Array(38, 40, 36), PackedInt32Array(37, 41, 39), PackedInt32Array(23, 43, 22), PackedInt32Array(22, 43, 42), PackedInt32Array(43, 45, 42), PackedInt32Array(42, 45, 44), PackedInt32Array(43, 46, 45), PackedInt32Array(44, 47, 42)]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7r4gi"]
+size = Vector3(1, 1, 1.2922363)
 
 [sub_resource type="Gradient" id="Gradient_4mrxx"]
 offsets = PackedFloat32Array(0, 0.5837838, 1)
@@ -179,6 +182,19 @@ material_override = ExtResource("6_q5onr")
 use_collision = true
 size = Vector3(1, 3, 8)
 
+[node name="porta" type="CSGBox3D" parent="NavigationRegion3D/map"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.7038336, 2, 9.480064)
+layers = 2
+material_override = ExtResource("5_e3hyu")
+use_collision = true
+size = Vector3(1, 3, 3.3382568)
+
+[node name="Area3D" type="Area3D" parent="NavigationRegion3D/map/porta"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/map/porta/Area3D"]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_7r4gi")
+
 [node name="UI" type="CanvasLayer" parent="."]
 process_mode = 3
 
@@ -287,5 +303,6 @@ theme_override_font_sizes/font_size = 24
 text = "Main Menu"
 metadata/_edit_use_anchors_ = true
 
+[connection signal="body_entered" from="NavigationRegion3D/map/porta/Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/RestartGameButton" to="UI/GameOver" method="_on_restart_game_button_pressed"]
 [connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/MainMenuButton" to="UI/GameOver" method="_on_main_menu_button_pressed"]
