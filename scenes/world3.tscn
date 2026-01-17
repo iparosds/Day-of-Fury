@@ -282,5 +282,6 @@ theme_override_font_sizes/font_size = 24
 text = "Main Menu"
 metadata/_edit_use_anchors_ = true
 
+[connection signal="body_entered" from="NavigationRegion3D/map/porta/Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/RestartGameButton" to="UI/GameOver" method="_on_restart_game_button_pressed"]
 [connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/MainMenuButton" to="UI/GameOver" method="_on_main_menu_button_pressed"]

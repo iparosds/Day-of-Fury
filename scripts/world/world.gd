@@ -56,7 +56,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body == GameManager.player:
-		go_to_next_world()
+		call_deferred("go_to_next_world")
 
 
 func go_to_next_world() -> void:
