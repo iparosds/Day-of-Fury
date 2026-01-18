@@ -1,14 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://bh0142p4qd3it"]
+[gd_scene load_steps=20 format=3 uid="uid://bh0142p4qd3it"]
 
 [ext_resource type="Script" uid="uid://0e88no365uj6" path="res://scripts/world/world.gd" id="1_i6go8"]
 [ext_resource type="Script" uid="uid://bknnd4kfmq2d5" path="res://scripts/world/game_over.gd" id="2_fhnld"]
 [ext_resource type="PackedScene" uid="uid://5qiutcfa6bb8" path="res://scenes/player/player.tscn" id="3_dw3vx"]
 [ext_resource type="PackedScene" uid="uid://bnsbq016sfu1d" path="res://scenes/player/camera_rig.tscn" id="4_n43de"]
 [ext_resource type="PackedScene" uid="uid://dmwo4fku7gxfi" path="res://scenes/enemies/spider.tscn" id="5_dv4af"]
-[ext_resource type="Material" uid="uid://ckn4iqgf3jxcm" path="res://materials/floor_material.tres" id="6_ysav7"]
+[ext_resource type="Material" uid="uid://bsnyh13bc7t6a" path="res://assets/textures/new_chao.tres" id="6_dw3vx"]
+[ext_resource type="Material" uid="uid://5i2i4naclale" path="res://assets/textures/new_parede.tres" id="7_n43de"]
 [ext_resource type="Material" uid="uid://cwjli7ix2o4yc" path="res://materials/wall_material.tres" id="7_rt81f"]
 [ext_resource type="Script" uid="uid://db8gnroasgryu" path="res://scripts/world/auto_hider.gd" id="8_oid5c"]
 [ext_resource type="Script" uid="uid://c6yxo4c3q7dwc" path="res://scripts/world/hud.gd" id="9_ugwxf"]
+[ext_resource type="PackedScene" uid="uid://b2xaubntr87w6" path="res://assets/models/porta.glb" id="10_dv4af"]
 
 [sub_resource type="PackedScene" id="PackedScene_4mrxx"]
 _bundled = {
@@ -44,7 +46,7 @@ glow_bloom = 0.1
 vertices = PackedVector3Array(4.4278865, 4, 19.5, 4.4278865, 4, 19, -4.3221135, 4, 19, -4.5721135, 4, 19.5, -4.5721135, 4, -19.5, -4.3221135, 4, -19, 4.4278865, 4, -19, 4.4278865, 4, -19.5, 2.4278865, 1, 0.75, 2.6778865, 1, 2, 3.4278865, 1, 2, 3.4278865, 1, -18.25, -3.3221135, 1, -18.25, -3.3221135, 1, 1, 1.4278865, 4, 2.25, 1.6778865, 4, 9.5, 1.6778865, 4, 1.75, -2.3221135, 4, 1.75, 0.4278865, 1, 10.25, 0.4278865, 1, 3, -3.3221135, 1, 2.75, 2.4278865, 1, 10.5, 3.4278865, 1, 18.25, -3.3221135, 1, 18.25)
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 2, 4), PackedInt32Array(4, 2, 3), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 4), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(13, 12, 8), PackedInt32Array(8, 12, 11), PackedInt32Array(16, 15, 14), PackedInt32Array(16, 14, 17), PackedInt32Array(19, 18, 20), PackedInt32Array(9, 10, 21), PackedInt32Array(21, 10, 22), PackedInt32Array(22, 23, 18), PackedInt32Array(18, 23, 20), PackedInt32Array(18, 21, 22)]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_i6go8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ysav7"]
 size = Vector3(1, 1, 1.2922363)
 
 [sub_resource type="Gradient" id="Gradient_4mrxx"]
@@ -95,38 +97,45 @@ navigation_mesh = SubResource("NavigationMesh_tefeu")
 [node name="map" type="Node3D" parent="NavigationRegion3D"]
 
 [node name="floor" type="CSGBox3D" parent="NavigationRegion3D/map"]
-material_override = ExtResource("6_ysav7")
+material_override = ExtResource("6_dw3vx")
 use_collision = true
 size = Vector3(10, 1, 40)
 
 [node name="lights" type="Node3D" parent="NavigationRegion3D/map"]
 
-[node name="OmniLight3D" type="OmniLight3D" parent="NavigationRegion3D/map/lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.400004, 6, 6.1867647)
-layers = 3
-light_energy = 4.0
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="NavigationRegion3D/map/lights"]
+transform = Transform3D(-1, 8.742278e-08, 3.821371e-15, 0, -4.371139e-08, 1, 8.742278e-08, 1, 4.371139e-08, -0.041733265, 0.025813103, -0.019107819)
+light_energy = 0.8
 shadow_enabled = true
-omni_range = 16.0
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="NavigationRegion3D/map/lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 5, -1)
-layers = 3
-light_energy = 4.0
-shadow_enabled = true
-omni_range = 16.0
 
 [node name="inner_walls" type="Node3D" parent="NavigationRegion3D/map"]
 
 [node name="wall6" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.28171262, 1.4856386, 2, 5.619093)
 layers = 2
-material_override = ExtResource("7_rt81f")
+material_override = ExtResource("7_n43de")
 use_collision = true
 size = Vector3(1, 3, 30.40332)
 script = ExtResource("8_oid5c")
 
 [node name="wall7" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
 transform = Transform3D(-4.371139e-08, 0, -0.28171262, 0, 1, 0, 1, 0, -1.231405e-08, -0.60889935, 2, 1.8351098)
+layers = 2
+material_override = ExtResource("7_n43de")
+use_collision = true
+size = Vector3(1, 3, 14.009277)
+script = ExtResource("8_oid5c")
+
+[node name="wall8" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
+transform = Transform3D(1, 0, 0, 0, 0.050000012, 0, 0, 0, 0.28171262, 1.4856386, 3.564852, 5.619093)
+layers = 2
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 30.40332)
+script = ExtResource("8_oid5c")
+
+[node name="wall9" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
+transform = Transform3D(-4.371139e-08, 0, -0.28171262, 0, 0.050000012, 0, 1, 0, -1.231405e-08, -0.60889935, 3.564852, 1.8351098)
 layers = 2
 material_override = ExtResource("7_rt81f")
 use_collision = true
@@ -138,41 +147,64 @@ script = ExtResource("8_oid5c")
 [node name="wall" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.499016, 2, 0)
 layers = 2
-material_override = ExtResource("7_rt81f")
+material_override = ExtResource("7_n43de")
 use_collision = true
 size = Vector3(1, 3, 38)
 
 [node name="wall2" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.8, -4.5501575, 2, 0)
-material_override = ExtResource("7_rt81f")
+material_override = ExtResource("7_n43de")
 use_collision = true
 size = Vector3(1, 3, 22)
 
 [node name="wall3" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
 transform = Transform3D(-4.3711385e-08, 0, 2.5, 0, 1, 0, -0.99999994, 0, -1.09278474e-07, -0.04663153, 2, -19.493208)
-material_override = ExtResource("7_rt81f")
+material_override = ExtResource("7_n43de")
 use_collision = true
 size = Vector3(1, 3, 4.0203857)
 
 [node name="wall4" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
 transform = Transform3D(-4.3711385e-08, 0, 2.5, 0, 1, 0, -0.99999994, 0, -1.09278474e-07, 0.0037226677, 2, 19.493208)
 layers = 2
+material_override = ExtResource("7_n43de")
+use_collision = true
+size = Vector3(1, 3, 4.0283203)
+
+[node name="wall5" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
+transform = Transform3D(1, 0, 0, 0, 0.050000012, 0, 0, 0, 1, 4.499016, 3.564852, 0)
+layers = 2
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 38)
+
+[node name="wall6" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
+transform = Transform3D(1, 0, 0, 0, 0.050000012, 0, 0, 0, 1.8, -4.5501575, 3.564852, 0)
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 22)
+
+[node name="wall7" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
+transform = Transform3D(-4.3711385e-08, 0, 2.5, 0, 0.050000012, 0, -0.99999994, 0, -1.09278474e-07, -0.04663153, 3.564852, -19.493208)
+material_override = ExtResource("7_rt81f")
+use_collision = true
+size = Vector3(1, 3, 4.0203857)
+
+[node name="wall8" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
+transform = Transform3D(-4.3711385e-08, 0, 2.5, 0, 0.050000012, 0, -0.99999994, 0, -1.09278474e-07, 0.0037226677, 3.564852, 19.493208)
+layers = 2
 material_override = ExtResource("7_rt81f")
 use_collision = true
 size = Vector3(1, 3, 4.0283203)
 
-[node name="porta" type="CSGBox3D" parent="NavigationRegion3D/map"]
-transform = Transform3D(-1, 0, 1.1920929e-07, 0, 1, 0, -1.1920929e-07, 0, -1, -4.5105524, 2, 9.480064)
-layers = 2
-material_override = ExtResource("6_ysav7")
-use_collision = true
-size = Vector3(1, 3, 3.3382568)
+[node name="porta2" parent="NavigationRegion3D/map" instance=ExtResource("10_dv4af")]
+transform = Transform3D(0.00085540663, 0, 0.99999964, 0, 1, 0, -0.99999964, 0, 0.00085540663, -4.357214, 2, 17.29458)
 
-[node name="Area3D" type="Area3D" parent="NavigationRegion3D/map/porta"]
+[node name="Area3D" type="Area3D" parent="NavigationRegion3D/map/porta2"]
+transform = Transform3D(-0.0008553192, 0, 0.99999964, 0, 1, 0, -0.99999964, 0, -0.0008553192, 0.008004665, 0.09174299, 0.26745224)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/map/porta/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/map/porta2/Area3D"]
 transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("BoxShape3D_i6go8")
+shape = SubResource("BoxShape3D_ysav7")
 
 [node name="UI" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -282,6 +314,6 @@ theme_override_font_sizes/font_size = 24
 text = "Main Menu"
 metadata/_edit_use_anchors_ = true
 
-[connection signal="body_entered" from="NavigationRegion3D/map/porta/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="NavigationRegion3D/map/porta2/Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/RestartGameButton" to="UI/GameOver" method="_on_restart_game_button_pressed"]
 [connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/MainMenuButton" to="UI/GameOver" method="_on_main_menu_button_pressed"]
