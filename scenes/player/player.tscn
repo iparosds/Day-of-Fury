@@ -1584,11 +1584,7 @@ libraries = {
 }
 
 [node name="camera_point" type="Node3D" parent="."]
-<<<<<<< HEAD
-transform = Transform3D(1, 0, 0, 0, 0.57690275, 0.81681263, 0, -0.81681263, 0.57690275, 0, 5, 3)
-=======
 transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.70710677, 0, -0.70710677, 0.7071067, 0, 3.1141644, 2.7583485)
->>>>>>> a3294c80ee9523b3324a3c8e7188de91831f5ddb
 
 [node name="PlayerHurtBox" type="Area3D" parent="."]
 transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, -0.059351563)
