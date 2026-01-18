@@ -18,7 +18,6 @@ const WORLDS := [
 
 
 func _ready() -> void:
-	MusicManager.play_music("res://assets/audio/bgm.ogg")
 	# Garante que a tela de Game Over inicia invisível
 	game_over.visible = false
 	# HUD inicia mostrando vidas atuais
@@ -70,9 +69,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 
 func go_to_next_world() -> void:
 	GameManager.current_level += 1
-	# Se não houver mais fases, você decide o que fazer
+	GameManager.player_hp = player.health
 	if GameManager.current_level >= WORLDS.size():
-		# Exemplo simples: volta pro menu
-		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		get_tree().change_scene_to_file("res://scenes/end.tscn")
 		return
 	get_tree().change_scene_to_file(WORLDS[GameManager.current_level])

@@ -7,6 +7,7 @@ var player: Node
 var player_lives : int = 3
 const MAX_LIVES : int = 3
 var current_level: int = 0
+var player_hp: int = -1
 
 func set_player(player_node: Node) -> void:
 	# Define o player atual do jogo
@@ -15,6 +16,8 @@ func set_player(player_node: Node) -> void:
 
 func reset_lives() -> void:
 	player_lives = MAX_LIVES
+	current_level = 0
+	player_hp = -1
 
 
 func lose_life() -> void:

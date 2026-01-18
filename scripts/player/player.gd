@@ -34,9 +34,12 @@ var was_on_floor: bool = false
 
 
 func _ready() -> void:
+	if GameManager.player_hp >= 0:
+		health = GameManager.player_hp
+	else:
+		health = 100
 	# Registra o player no GameManager
 	GameManager.set_player(self)
-	health = max_health
 	emit_signal("health_changed", health, max_health)
 	# Suaviza transições entre animações
 	animation_player.set_blend_time("Idle", "Run", 0.2)
@@ -220,6 +223,7 @@ func take_damage(damage: int) -> void:
 	# Aplica dano/vida
 	health -= damage
 	health = clamp(health, 0, max_health)
+	GameManager.player_hp = health
 	emit_signal("health_changed", health, max_health)
 	# Morte: recarrega a cena inteira (reseta tudo)
 	if health <= 0:

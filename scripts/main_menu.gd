@@ -14,6 +14,7 @@ var center: Vector2
 
 
 func _ready() -> void:
+	MusicManager.play_music("res://assets/audio/main.mp3")
 	# Garante que o jogo não esteja pausado ao entrar no menu
 	get_tree().paused = false
 	# Mouse visível para interação com a UI
@@ -37,7 +38,7 @@ func _process(delta: float) -> void:
 func _on_play_button_pressed() -> void:
 	GameManager.reset_lives()
 	# Inicia o jogo carregando a cena principal
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	get_tree().change_scene_to_file("res://scenes/intro.tscn")
 
 
 func _on_credits_button_pressed() -> void:
