@@ -4,8 +4,8 @@ extends Node
 
 # Referência ao nó do player
 var player: Node
-var player_lives : int = 3
-const MAX_LIVES : int = 3
+var player_lives : int = 1
+const MAX_LIVES : int = 1
 var current_level: int = 0
 var player_hp: int = -1
 

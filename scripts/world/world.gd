@@ -15,6 +15,7 @@ const WORLDS := [
 	"res://scenes/world3.tscn"
 ]
 
+var _death_fade_started := false
 
 
 func _ready() -> void:
@@ -24,6 +25,21 @@ func _ready() -> void:
 	hud.update_lives()
 	# Conecta o sinal de morte do player
 	player.died.connect(on_player_died)
+	player.health_changed.connect(_on_player_health_changed)
+
+
+func _on_player_health_changed(current: int, _max: int) -> void:
+	if current > 0:
+		return
+	if _death_fade_started:
+		return
+
+	# Só faz fade de "Game Over" se esta morte vai zerar as vidas
+	if GameManager.player_lives <= 1:
+		_death_fade_started = true
+		game_over.visible = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		game_over.start_fade(player.death_duration)
 
 
 func on_player_died() -> void:
@@ -35,8 +51,8 @@ func on_player_died() -> void:
 		await get_tree().create_timer(1.0).timeout
 		get_tree().reload_current_scene()
 	else:
-		# Acabaram as vidas -> Game Over
-		game_over.visible = true
+		# Acabaram as vidas -> Game Over (imagem já deve ter terminado o fade)
+		game_over.finish_and_wait_click()
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 

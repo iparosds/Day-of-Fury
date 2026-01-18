@@ -19,6 +19,8 @@ enum PlayerState { IDLE, RUN, JUMP, ATTACK, HURT, DEATH }
 @onready var camera_point: Node3D = $camera_point 
 # Vida máxima configurável no inspector
 @export var max_health: int = 100
+@export var death_duration: float = 2.5
+
 
 signal health_changed(current: int, max: int)
 signal died
@@ -241,5 +243,5 @@ func take_damage(damage: int) -> void:
 
 func emit_died_after_death() -> void:
 	# deixa a “animação de morte” acontecer (no seu caso é Hurt)
-	await get_tree().create_timer(2.5).timeout
+	await get_tree().create_timer(death_duration).timeout
 	emit_signal("died")
