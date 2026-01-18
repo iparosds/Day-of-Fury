@@ -15,6 +15,7 @@ script = ExtResource("1_asq2o")
 
 [node name="base_camera" type="Camera3D" parent="."]
 cull_mask = 1047552
+fov = 60.0
 
 [node name="background_viewport_container" type="SubViewportContainer" parent="base_camera"]
 anchors_preset = 15
@@ -30,6 +31,7 @@ render_target_update_mode = 4
 
 [node name="background_camera" type="Camera3D" parent="base_camera/background_viewport_container/background_viewport"]
 cull_mask = 1047553
+fov = 60.0
 
 [node name="foreground_viewport_container" type="SubViewportContainer" parent="base_camera"]
 material = SubResource("ShaderMaterial_asq2o")
@@ -46,3 +48,4 @@ render_target_update_mode = 4
 
 [node name="foreground_camera" type="Camera3D" parent="base_camera/foreground_viewport_container/foreground_viewport"]
 cull_mask = 1047554
+fov = 60.0
