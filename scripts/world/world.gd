@@ -18,6 +18,7 @@ const WORLDS := [
 
 
 func _ready() -> void:
+	MusicManager.play_music("res://assets/audio/bgm.ogg")
 	# Garante que a tela de Game Over inicia invisível
 	game_over.visible = false
 	# HUD inicia mostrando vidas atuais
@@ -42,16 +43,23 @@ func on_player_died() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	# Se o player não existir mais, não atualiza inimigos
 	if not is_instance_valid(player):
 		return
-	# Envia continuamente a posição do player para todos os inimigos
-	# do grupo "enemies", permitindo que atualizem seu pathfinding
-	get_tree().call_group(
-		"enemies",
-		"update_target_location",
-		player.global_transform.origin
-	)
+
+	var player_pos := player.global_position
+	var aggro_range := 8.0
+	var aggro_sq := aggro_range * aggro_range
+
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if not is_instance_valid(enemy):
+			continue
+
+		# Só atualiza quem estiver perto
+		if enemy.global_position.distance_squared_to(player_pos) <= aggro_sq:
+			enemy.update_target_location(player_pos)
+		else:
+			# Opcional: força parar se estiver longe (evita "continuar perseguindo")
+			enemy.update_target_location(enemy.global_position)
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:

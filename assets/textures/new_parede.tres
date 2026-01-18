@@ -1,0 +1,24 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://5i2i4naclale"]
+
+[ext_resource type="Texture2D" uid="uid://4fyhtdj2af" path="res://assets/models/parede_wall_diff.png" id="1_g5xpk"]
+[ext_resource type="Texture2D" uid="uid://bhpi8mi1nno5a" path="res://assets/models/parede_wall_emit_col.png" id="2_4vfwg"]
+[ext_resource type="Texture2D" uid="uid://dw070w02jgk8n" path="res://assets/models/parede_wall_rough.png" id="3_pxceu"]
+[ext_resource type="Texture2D" uid="uid://c32yvce7wkr18" path="res://assets/models/parede_wall_normal.png" id="4_o1kb0"]
+
+[resource]
+resource_name = "parede"
+cull_mode = 2
+albedo_texture = ExtResource("1_g5xpk")
+metallic_texture = ExtResource("3_pxceu")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("3_pxceu")
+roughness_texture_channel = 1
+emission_enabled = true
+emission_energy_multiplier = 10.0
+emission_texture = ExtResource("2_4vfwg")
+normal_enabled = true
+normal_scale = -16.0
+normal_texture = ExtResource("4_o1kb0")
+uv1_scale = Vector3(-1, 1, 1)
+uv1_triplanar = true
+uv1_world_triplanar = true

@@ -89,7 +89,7 @@ offset_bottom = -69.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 52
-text = "Day of Fury"
+text = "Compiling Rage: Dev Fury"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -167,39 +167,40 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="Control/CreditsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Eu"
+text = "Luciano Barros"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="Control/CreditsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Tu"
+text = "Bruno Fiorelli"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="Control/CreditsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Ele"
+text = "Bóris Rodrigues"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label4" type="Label" parent="Control/CreditsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Nos"
+text = "André Piñata"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label5" type="Label" parent="Control/CreditsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Vos"
+text = "André Pfeiffer"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label6" type="Label" parent="Control/CreditsContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Eles"

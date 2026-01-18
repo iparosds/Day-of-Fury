@@ -1,11 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://sexva2yp2cww"]
+[gd_scene load_steps=19 format=3 uid="uid://sexva2yp2cww"]
 
 [ext_resource type="Script" uid="uid://0e88no365uj6" path="res://scripts/world/world.gd" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://5qiutcfa6bb8" path="res://scenes/player/player.tscn" id="2_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://bnsbq016sfu1d" path="res://scenes/player/camera_rig.tscn" id="3_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://dmwo4fku7gxfi" path="res://scenes/enemies/spider.tscn" id="4_w7kh3"]
 [ext_resource type="Material" uid="uid://ckn4iqgf3jxcm" path="res://materials/floor_material.tres" id="5_e3hyu"]
-[ext_resource type="Material" uid="uid://cwjli7ix2o4yc" path="res://materials/wall_material.tres" id="6_q5onr"]
+[ext_resource type="Material" uid="uid://bsnyh13bc7t6a" path="res://assets/textures/new_chao.tres" id="6_w7kh3"]
+[ext_resource type="Material" uid="uid://5i2i4naclale" path="res://assets/textures/new_parede.tres" id="7_7r4gi"]
 [ext_resource type="Script" uid="uid://db8gnroasgryu" path="res://scripts/world/auto_hider.gd" id="7_jhx03"]
 [ext_resource type="Script" uid="uid://bknnd4kfmq2d5" path="res://scripts/world/game_over.gd" id="9_7r4gi"]
 [ext_resource type="Script" uid="uid://c6yxo4c3q7dwc" path="res://scripts/world/hud.gd" id="9_w7kh3"]
@@ -75,24 +76,25 @@ transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -7.8
 transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -7.8674355, 0.50171745, 6.884794)
 
 [node name="spider3" parent="enemies" instance=ExtResource("4_w7kh3")]
-transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -0.86743546, 0.50171745, -7.115206)
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 0.15895319, 0.50171745, -7.115206)
 
 [node name="spider5" parent="enemies" instance=ExtResource("4_w7kh3")]
-transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 7.1325645, 0.50171745, -7.115206)
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 8.211656, 0.50171745, -7.115206)
 
 [node name="spider4" parent="enemies" instance=ExtResource("4_w7kh3")]
-transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -7.8674355, 0.50171745, -8.115206)
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -4.7858667, 0.50171745, -7.6023464)
 
 [node name="spider6" parent="enemies" instance=ExtResource("4_w7kh3")]
-transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 3.1325645, 0.50171745, -8.115206)
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 2.6422539, 0.50171745, -8.115206)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.041733265, -0.025813103, 0.019107819)
 navigation_mesh = SubResource("NavigationMesh_tefeu")
 
 [node name="map" type="Node3D" parent="NavigationRegion3D"]
 
 [node name="floor" type="CSGBox3D" parent="NavigationRegion3D/map"]
-material_override = ExtResource("5_e3hyu")
+material_override = ExtResource("6_w7kh3")
 use_collision = true
 size = Vector3(20, 1, 20)
 
@@ -115,17 +117,17 @@ omni_range = 16.0
 [node name="inner_walls" type="Node3D" parent="NavigationRegion3D/map"]
 
 [node name="wall5" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.28171262, 1.4856386, 2, -5.042384)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.28171262, 6.3725305, 2, -2.9984374)
 layers = 2
-material_override = ExtResource("6_q5onr")
+material_override = ExtResource("7_7r4gi")
 use_collision = true
-size = Vector3(1, 3, 28)
+size = Vector3(1, 3, 42.510864)
 script = ExtResource("7_jhx03")
 
 [node name="wall6" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.28171262, 1.4856386, 2, 5.619093)
 layers = 2
-material_override = ExtResource("6_q5onr")
+material_override = ExtResource("7_7r4gi")
 use_collision = true
 size = Vector3(1, 3, 30.40332)
 script = ExtResource("7_jhx03")
@@ -133,7 +135,7 @@ script = ExtResource("7_jhx03")
 [node name="wall7" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
 transform = Transform3D(-4.371139e-08, 0, -0.28171262, 0, 1, 0, 1, 0, -1.231405e-08, -0.60889935, 2, 1.8351098)
 layers = 2
-material_override = ExtResource("6_q5onr")
+material_override = ExtResource("7_7r4gi")
 use_collision = true
 size = Vector3(1, 3, 14.009277)
 script = ExtResource("7_jhx03")
@@ -141,15 +143,31 @@ script = ExtResource("7_jhx03")
 [node name="wall8" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
 transform = Transform3D(-4.371139e-08, 0, -0.28171262, 0, 1, 0, 1, 0, -1.231405e-08, -6.744328, 2, 1.8351098)
 layers = 2
-material_override = ExtResource("6_q5onr")
+material_override = ExtResource("7_7r4gi")
 use_collision = true
 size = Vector3(1, 3, 15.631592)
 script = ExtResource("7_jhx03")
 
-[node name="wall9" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
-transform = Transform3D(-1, 0, 2.46281e-08, 0, 1, 0, -8.742278e-08, 0, -0.28171262, -5.044328, 2, -5.2000613)
+[node name="wall13" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
+transform = Transform3D(-1, 0, 2.46281e-08, 0, 1, 0, -8.742278e-08, 0, -0.28171262, -6.904893, 2, -5.2000613)
 layers = 2
-material_override = ExtResource("6_q5onr")
+material_override = ExtResource("7_7r4gi")
+use_collision = true
+size = Vector3(1, 3, 27)
+script = ExtResource("7_jhx03")
+
+[node name="wall10" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
+transform = Transform3D(-1, 0, 2.46281e-08, 0, 1, 0, -8.742278e-08, 0, -0.28171262, -2.4553685, 2, -5.2000613)
+layers = 2
+material_override = ExtResource("7_7r4gi")
+use_collision = true
+size = Vector3(1, 3, 27)
+script = ExtResource("7_jhx03")
+
+[node name="wall12" type="CSGBox3D" parent="NavigationRegion3D/map/inner_walls"]
+transform = Transform3D(-1, 0, 2.46281e-08, 0, 1, 0, -8.742278e-08, 0, -0.28171262, 2.5798683, 2, -5.2000613)
+layers = 2
+material_override = ExtResource("7_7r4gi")
 use_collision = true
 size = Vector3(1, 3, 27)
 script = ExtResource("7_jhx03")
@@ -159,31 +177,31 @@ script = ExtResource("7_jhx03")
 [node name="wall" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.485639, 2, 0)
 layers = 2
-material_override = ExtResource("6_q5onr")
+material_override = ExtResource("7_7r4gi")
 use_collision = true
 size = Vector3(1, 3, 18)
 
 [node name="wall2" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.8, -9.500776, 2, 0)
-material_override = ExtResource("6_q5onr")
+material_override = ExtResource("7_7r4gi")
 use_collision = true
 size = Vector3(1, 3, 10)
 
 [node name="wall3" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
 transform = Transform3D(-4.3711385e-08, 0, 2.5, 0, 1, 0, -0.99999994, 0, -1.09278474e-07, -0.0075690327, 2, -9.493208)
-material_override = ExtResource("6_q5onr")
+material_override = ExtResource("7_7r4gi")
 use_collision = true
 size = Vector3(1, 3, 8)
 
 [node name="wall4" type="CSGBox3D" parent="NavigationRegion3D/map/outer_walls"]
 transform = Transform3D(-4.3711385e-08, 0, 2.5, 0, 1, 0, -0.99999994, 0, -1.09278474e-07, -0.0075686397, 2, 9.493208)
 layers = 2
-material_override = ExtResource("6_q5onr")
+material_override = ExtResource("7_7r4gi")
 use_collision = true
 size = Vector3(1, 3, 8)
 
 [node name="porta" type="CSGBox3D" parent="NavigationRegion3D/map"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.7038336, 2, 9.480064)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.475462, 2, 7.213294)
 layers = 2
 material_override = ExtResource("5_e3hyu")
 use_collision = true
