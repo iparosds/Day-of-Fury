@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c1qgnkto4tthp"]
+
+[ext_resource type="FontFile" uid="uid://bqsglh0nerp5b" path="res://assets/fonts/PermanentMarker-Regular.ttf" id="1_3uyqq"]
+
+[resource]
+default_font = ExtResource("1_3uyqq")
