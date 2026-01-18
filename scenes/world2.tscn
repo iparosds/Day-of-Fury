@@ -251,10 +251,10 @@ use_collision = true
 size = Vector3(1, 3, 15.9626465)
 
 [node name="porta2" parent="NavigationRegion3D/map" instance=ExtResource("10_hvnw1")]
-transform = Transform3D(0.99999964, 0, -0.0008552755, 0, 1, 0, 0.0008552755, 0, 0.99999964, -15.24473, 2, 9.328632)
+transform = Transform3D(-0.0008553192, 0, -0.99999964, 0, 1, 0, 0.99999964, 0, -0.0008553192, -19.24473, 2, 6.3286324)
 
 [node name="Area3D" type="Area3D" parent="NavigationRegion3D/map/porta2"]
-transform = Transform3D(-0.0008553192, 0, 0.99999964, 0, 1, 0, -0.99999964, 0, -0.0008553192, 0.0001835823, 0, 0.21482754)
+transform = Transform3D(-0.0008553192, 0, 0.99999964, 0, 1, 0, -0.99999964, 0, -0.0008553192, 0.008004665, 0.09174299, 0.26745224)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/map/porta2/Area3D"]
 transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -368,5 +368,6 @@ theme_override_font_sizes/font_size = 24
 text = "Main Menu"
 metadata/_edit_use_anchors_ = true
 
+[connection signal="body_entered" from="NavigationRegion3D/map/porta2/Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/RestartGameButton" to="UI/GameOver" method="_on_restart_game_button_pressed"]
 [connection signal="pressed" from="UI/GameOver/Control/VBoxContainer/MainMenuButton" to="UI/GameOver" method="_on_main_menu_button_pressed"]
