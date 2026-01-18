@@ -21,9 +21,12 @@ var player_in_range: bool = false
 var is_dead: bool = false
 # Indica se o inimigo está em animação de dano
 var is_hurt: bool = false
+var is_walking = false
+var is_aggro = false
 
 
 func _ready() -> void:
+	#animation_player.play("idle")
 	# Inicializa a vida do inimigo
 	health = max_health
 	emit_signal("health_changed", health, max_health)
@@ -69,15 +72,22 @@ func _physics_process(_delta: float) -> void:
 	var new_velocity = dir.normalized() * SPEED
 	# Se houver deslocamento, persegue o player
 	if new_velocity.length() > 0.01:
-		animation_player.play("walk")
+		#animation_player.play("walk")
 		if GameManager.player:
 			look_at(GameManager.player.global_position, Vector3.UP)
 			rotate_y(PI)
-	else:
+	#else:
 		# Caso contrário, permanece parado
-		animation_player.play("idle")
+		#animation_player.play("idle")
 	# Envia a velocidade para o NavigationAgent
 	navigation_agent.set_velocity(new_velocity)
+	
+	var moving := velocity.length() > 0.05
+	if moving or is_aggro:
+		play_walk()
+	else:
+		play_idle()
+
 
 
 func take_damage(damage: int) -> void:
@@ -117,6 +127,9 @@ func update_target_location(target_location):
 	# Atualiza a posição alvo do NavigationAgent
 	navigation_agent.target_position = target_location
 
+func set_aggro(value):
+	is_aggro = value
+
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	# Aplica a velocidade final calculada pelo avoidance
@@ -149,3 +162,16 @@ func attack_hitbox_enable() -> void:
 # só seja aplicado durante os frames corretos do ataque.
 func attack_hitbox_disable() -> void:
 	spider_hit_box.disable()
+
+
+func play_idle() -> void:
+	if animation_player.current_animation == "idle":
+		return
+	animation_player.play("idle")
+	is_walking = false
+
+func play_walk() -> void:
+	if animation_player.current_animation == "walk":
+		return
+	animation_player.play("walk")
+	is_walking = true

@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgguf4jnts01r"]
+[gd_scene load_steps=6 format=3 uid="uid://dgguf4jnts01r"]
 
 [ext_resource type="Script" uid="uid://eem0putghxav" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://b6rwhw0wx8agl" path="res://assets/images/bg.jpg" id="2_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://dbxslmp2wy1pu" path="res://assets/images/logo jogo jam 2026.png" id="2_ekxnf"]
 
 [sub_resource type="Gradient" id="Gradient_vue75"]
 offsets = PackedFloat32Array(0, 0.64324325, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.34117648, 0.8156863, 0.8156863, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.6745098, 0.09803922, 0.44705883, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_l6cm7"]
 gradient = SubResource("Gradient_vue75")
@@ -19,6 +21,7 @@ grow_vertical = 2
 script = ExtResource("1_l6cm7")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,15 +44,22 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Bg" type="Sprite2D" parent="Control2"]
+position = Vector2(54, -145)
+scale = Vector2(1.753125, 2.1685185)
+texture = ExtResource("2_bqqt6")
+
 [node name="ColorRect" type="ColorRect" parent="Control2"]
+visible = false
 layout_mode = 0
 offset_left = -336.0
 offset_top = 209.0
 offset_right = 20.0
 offset_bottom = 941.0
-color = Color(0.15557122, 0.4723683, 0.4727434, 1)
+color = Color(0.67058825, 0.08627451, 0.44705883, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="Control2"]
+visible = false
 layout_mode = 0
 offset_left = 555.0
 offset_top = -115.0
@@ -58,12 +68,13 @@ offset_bottom = 182.0
 color = Color(0.9607843, 0.9529412, 0.9529412, 1)
 
 [node name="ColorRect3" type="ColorRect" parent="Control2"]
+visible = false
 layout_mode = 0
 offset_left = -1309.0
 offset_top = -907.0
 offset_right = -421.0
 offset_bottom = -167.0
-color = Color(0.043137256, 0.13725491, 0.13725491, 1)
+color = Color(0.12941177, 0.015686275, 0.08627451, 1)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -75,7 +86,13 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GameLabel" type="Label" parent="Control"]
+[node name="GameLabel" type="Sprite2D" parent="Control"]
+position = Vector2(2.9999886, -271.00003)
+scale = Vector2(1.1159482, 1.1159482)
+texture = ExtResource("2_ekxnf")
+
+[node name="GameLabel_old" type="Label" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

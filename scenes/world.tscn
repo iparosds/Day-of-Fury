@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://5qiutcfa6bb8" path="res://scenes/player/player.tscn" id="2_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://bnsbq016sfu1d" path="res://scenes/player/camera_rig.tscn" id="3_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://dmwo4fku7gxfi" path="res://scenes/enemies/spider.tscn" id="4_w7kh3"]
-[ext_resource type="Material" uid="uid://ckn4iqgf3jxcm" path="res://materials/floor_material.tres" id="5_e3hyu"]
 [ext_resource type="Material" uid="uid://bsnyh13bc7t6a" path="res://assets/textures/new_chao.tres" id="6_w7kh3"]
 [ext_resource type="Material" uid="uid://5i2i4naclale" path="res://assets/textures/new_parede.tres" id="7_7r4gi"]
 [ext_resource type="Script" uid="uid://db8gnroasgryu" path="res://scripts/world/auto_hider.gd" id="7_jhx03"]
 [ext_resource type="Script" uid="uid://bknnd4kfmq2d5" path="res://scripts/world/game_over.gd" id="9_7r4gi"]
 [ext_resource type="Script" uid="uid://c6yxo4c3q7dwc" path="res://scripts/world/hud.gd" id="9_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://b2xaubntr87w6" path="res://assets/models/porta.glb" id="10_e3hyu"]
 
 [sub_resource type="PackedScene" id="PackedScene_4mrxx"]
 _bundled = {
@@ -200,14 +200,11 @@ material_override = ExtResource("7_7r4gi")
 use_collision = true
 size = Vector3(1, 3, 8)
 
-[node name="porta" type="CSGBox3D" parent="NavigationRegion3D/map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.475462, 2, 7.213294)
-layers = 2
-material_override = ExtResource("5_e3hyu")
-use_collision = true
-size = Vector3(1, 3, 3.3382568)
+[node name="porta" parent="NavigationRegion3D/map" instance=ExtResource("10_e3hyu")]
+transform = Transform3D(-0.0008553192, 0, -0.99999964, 0, 1, 0, 0.99999964, 0, -0.0008553192, -9.24473, 2, 7.481696)
 
 [node name="Area3D" type="Area3D" parent="NavigationRegion3D/map/porta"]
+transform = Transform3D(-0.0008553192, 0, 0.99999964, 0, 1, 0, -0.99999964, 0, -0.0008553192, 0.0001835823, 0, 0.21482754)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/map/porta/Area3D"]
 transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

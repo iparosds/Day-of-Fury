@@ -57,6 +57,7 @@ func _physics_process(_delta: float) -> void:
 		# Só atualiza quem estiver perto
 		if enemy.global_position.distance_squared_to(player_pos) <= aggro_sq:
 			enemy.update_target_location(player_pos)
+			enemy.set_aggro(true)
 		else:
 			# Opcional: força parar se estiver longe (evita "continuar perseguindo")
 			enemy.update_target_location(enemy.global_position)

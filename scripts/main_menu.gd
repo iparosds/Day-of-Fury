@@ -6,7 +6,7 @@ extends Control
 @onready var main_menu_container: VBoxContainer = $Control/MainMenuContainer
 @onready var credits_container: VBoxContainer = $Control/CreditsContainer
 # Labels de título
-@onready var game_label: Label = $Control/GameLabel
+@onready var game_label: Sprite2D = $Control/GameLabel
 @onready var credits_label: Label = $Control/CreditsLabel
 
 # Centro da tela, usado como referência para o parallax
